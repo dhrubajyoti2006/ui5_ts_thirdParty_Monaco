@@ -16,7 +16,7 @@
 		"lint": "eslint webapp"
 	},
 	"dependencies": {
-		"monaco-editor": "^0.46.0"
+		"monaco-editor": "^0.45.0"
 	},
 	"devDependencies": {
 		"@sapui5/types": "1.120.7",
