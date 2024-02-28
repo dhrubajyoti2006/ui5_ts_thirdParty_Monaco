@@ -4,16 +4,17 @@ import "../vs/editor/editor.main";
 // import "../vs/language/json/jsonWorker";
 // import "monaco-editor-webpack-plugin";
 import * as monaco from "monaco-editor";
+import "../vs/editor/editor.main";
 // import "./UserWorker";
 
-	self.MonacoEnvironment = {
-		getWorkerUrl: function (moduleId, label) {
-			if (label === 'json') {
-				return './vs/language/json/jsonWorker.js';
-			}
-			return './vs/editor/editor.main.js';
-		}
-	};
+window.MonacoEnvironment = {
+	getWorkerUrl: function () {
+		return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+              self.MonacoEnvironment = { baseUrl: '${window.location.origin}/' };
+              importScripts('${window.location.origin}/vs/base/worker/workerMain.js');
+          `)}`;
+	}
+};
 
 /**
  * @namespace com.myorg.myapp.control
@@ -27,9 +28,13 @@ export default class WDEditor extends Control {
 
 	public onAfterRendering() {
 		if (typeof monaco !== "undefined") {
+			const modelUri = monaco.Uri.parse("json://grid/settings.json");
+			const jsonModel = monaco.editor.createModel(JSON.stringify({ name: 'Hello' }, null, '\t'), "json", modelUri);
+
 			monaco.editor.create(this.getDomRef() as HTMLElement, {
-				value: "{ name: 'Hello' }",
+				// value: "{ name: 'Hello' }",
 				language: 'json',
+				model: jsonModel
 			});
 		}
 	}

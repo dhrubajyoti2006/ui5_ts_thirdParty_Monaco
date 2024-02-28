@@ -15,10 +15,8 @@
 		"ts-typecheck": "tsc --noEmit",
 		"lint": "eslint webapp"
 	},
-	"dependencies": {
-		"monaco-editor": "^0.45.0"
-	},
 	"devDependencies": {
+		"monaco-editor": "^0.45.0",
 		"@sapui5/types": "1.120.7",
 		"@typescript-eslint/eslint-plugin": "^5.61.0",
 		"@typescript-eslint/parser": "^5.61.0",
